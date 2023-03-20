@@ -21,7 +21,7 @@
                 <a class="nav-link"  href="index.html">Главная</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link"  href="#">Абитуриенту</a>
+                <a class="nav-link"  href="entrant.html">Абитуриенту</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,6 +60,7 @@
                 Заполнено!
               </div>
             </div>
+
             <div class="col-md-4">
               <label for="validationCustom02" class="form-label">Фамилия</label>
               <input type="text" class="form-control" id="validationCustom02" value="" required>
@@ -71,8 +72,31 @@
               </div>
             </div>
 
-
             <div class="col-md-4">
+              <label for="validationCustom02" class="form-label">Отчество <span style="opacity: 50%;"> (в случае отсутствия отчества введите: "Без отчества") </span></label>
+              <input type="text" class="form-control" id="validationCustom02" value="" required>
+              <div class="invalid-feedback">
+                Некорректные данные!
+            </div>
+              <div class="valid-feedback">
+                Заполнено!
+              </div>
+            </div>
+
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <label for="inputBirthday" class="form-label">Дата рождения</label>
+                <div class="input-group has-validation">
+                  <input type="date" class="form-control" id="inputBirthday" required>
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="col-md-6">
               <label for="validationMail" class="form-label">Почта</label>
               <div class="input-group has-validation">
                 <input type="email" class="form-control" id="validationMail" placeholder="name@example.com" aria-describedby="inputGroupPrepend" required>
@@ -81,31 +105,28 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-md-6">
-              <label for="validationCustom03" class="form-label">Город</label>
-              <input type="text" class="form-control" id="validationCustom03" required>
-              <div class="invalid-feedback">
-                Некорректные данные!
-              </div>
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                  <label for="registerInputPassword" class="form-label">Пароль</label>
+                  <div class="input-group has-validation">
+                    <input type="password" class="form-control" id="registerInputPassword" required>
+                    <div class="invalid-feedback">
+                      Некорректные данные!
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <label for="registerInputPasswordConfirm" class="form-label">Подтверждение пароля</label>
+                  <div class="input-group has-validation">
+                    <input type="password" class="form-control" id="registerInputPasswordConfirm" required>
+                    <div class="invalid-feedback">
+                      Некорректные данные!
+                    </div>
+                  </div>
+                </div>
             </div>
-            <div class="col-md-3">
-              <label for="validationCustom04" class="form-label">State</label>
-              <select class="form-select" id="validationCustom04" required>
-                <option selected disabled value="">Choose...</option>
-                <option>...</option>
-              </select>
-              <div class="invalid-feedback">
-                Некорректные данные!
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom05" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="validationCustom05" required>
-              <div class="invalid-feedback">
-                Некорректные данные!
-              </div>
-            </div>
+            
+          
             <div class="col-12">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
@@ -113,12 +134,11 @@
                 Я согласен на обработку моих персональных данных
                 </label>
                 <div class="invalid-feedback">
-                    Некорректные данные!
                 </div>
               </div>
             </div>
             <div class="col-12">
-              <button class="btn btn-primary" type="submit">Submit form</button>
+              <button class="btn btn-primary" type="submit">Готово</button>
             </div>
           </form>
       </div>
