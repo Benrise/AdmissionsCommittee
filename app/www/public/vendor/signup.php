@@ -25,7 +25,7 @@ if ($password === $password_confirm) {
     mysqli_query($connect, "INSERT INTO `entrants` (id_entrant, name, surname, patronymic, birthday, email, password) 
                                     VALUES (NULL, '$name', '$surname','$patronymic', '$birthday','$email','$password')");
 
-    $_SESSION['message'] = 'Регистрация сотрудника прошла успешно!';
+    $_SESSION['message'] = 'Регистрация прошла успешно!';
     header('Location: ../profile.php');
 
 

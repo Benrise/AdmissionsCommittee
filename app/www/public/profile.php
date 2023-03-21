@@ -1,10 +1,10 @@
 <?php
-
 session_start();
 require_once("vendor/db_connect.php");
 include("vendor/requests_fetching.php");
 
 if (!isset($_SESSION['user'])) {
+    unset($_SESSION['employer']);
     header('Location: http://localhost/login.php');
 
 }

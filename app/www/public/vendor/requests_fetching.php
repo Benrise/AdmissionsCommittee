@@ -72,3 +72,19 @@ function show_request_num(){
 }
 
 
+function fetch_employer_requests(){
+    $id_employer = $_SESSION['employer']['id_employer'];
+    if (isset($_SESSION['employer_requests'])) unset($_SESSION['employer_requests']);
+    $check_user = mysqli_query($GLOBALS['connect'], "SELECT * FROM requests where id_employer='$id_employer';");
+    if (mysqli_num_rows($check_user) > 0) {
+        while ($user = $check_user->fetch_assoc()) {
+            $_SESSION['employer_requests'][] = [
+                "id_request" => $user['id_request'],
+                "date_of_submission" => $user['date_of_submission'],
+                "id_faculty" => $user['id_faculty'],
+                "id_status" => $user['id_status'],
+                "id_entrant" => $user['id_entrant']
+            ];
+        }
+    }
+}

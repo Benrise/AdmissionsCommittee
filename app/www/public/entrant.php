@@ -88,10 +88,10 @@ include("vendor/faculties_fetching.php");
 
             <p></p>
 
-            <form class="row g-4 needs-validation" novalidate>
+            <form class="row g-4 needs-validation" action="vendor/new_request.php" method="post" novalidate>
                 <div class="col-md-4">
-                  <label for="validationCustom01" class="form-label">Имя</label>
-                  <input type="text" class="form-control" id="validationCustom01" value="" required>
+                  <label for="inputName" class="form-label">Имя</label>
+                  <input type="text" class="form-control" name="inputName" id="inputName" value="" required>
                   <div class="invalid-feedback">
                     Некорректные данные!
                 </div>
@@ -101,8 +101,8 @@ include("vendor/faculties_fetching.php");
                 </div>
 
                 <div class="col-md-4">
-                  <label for="validationCustom02" class="form-label">Фамилия</label>
-                  <input type="text" class="form-control" id="validationCustom02" value="" required>
+                  <label for="inputSurname" class="form-label">Фамилия</label>
+                  <input type="text" class="form-control" name="inputSurname" id="inputSurname" value="" required>
                   <div class="invalid-feedback">
                     Некорректные данные!
                 </div>
@@ -112,8 +112,8 @@ include("vendor/faculties_fetching.php");
                 </div>
 
                 <div class="col-md-4">
-                  <label for="validationCustom02" class="form-label">Отчество</label>
-                  <input type="text" class="form-control" id="validationCustom02" value="" required>
+                  <label for="inputPatronymic" class="form-label">Отчество</label>
+                  <input type="text" class="form-control" name="inputPatronymic" id="inputPatronymic" value="" required>
                   <div class="invalid-feedback">
                       В случае отсутствия введите: "Без отчества"
                 </div>
@@ -126,7 +126,7 @@ include("vendor/faculties_fetching.php");
                   <div class="col-auto">
                     <label for="inputBirthday" class="form-label">Дата рождения</label>
                     <div class="input-group has-validation">
-                      <input type="date" class="form-control" id="inputBirthday" required>
+                      <input type="date" class="form-control"name="inputBirthday" id="inputBirthday" required>
                       <div class="invalid-feedback">
                       </div>
                     </div>
@@ -154,16 +154,16 @@ include("vendor/faculties_fetching.php");
                 <div class="mb-3">
                   <label for="passport" class="form-label">Паспортные данные</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="passport" placeholder="Номер паспорта" aria-label="Username">
-                    <input type="text" class="form-control" placeholder="Нерия паспорта" aria-label="passport">
+                    <input type="number" class="form-control" name="inputPassportNum" placeholder="Номер паспорта" aria-label="Passport num">
+                    <input type="number" class="form-control" name="inputPassportSerial" placeholder="Серия паспорта" aria-label="Passport serial">
                   </div>
                   <div class="input-group">
                     <span class="input-group-text">Кем выдан</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <textarea class="form-control" name="inputGivenOutByWhom" aria-label="With textarea"></textarea>
                   </div>
                   <div class="input-group ">
                     <span class="input-group-text">Когда выдан</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <input type="date" class="form-control" name="inputWhenGivenOut" aria-label="With textarea"></input>
                   </div>
                 </div>
                 
@@ -171,14 +171,14 @@ include("vendor/faculties_fetching.php");
 
                 <div class="mb-3">
                   <label for="eduInstitution" class="form-label">Учебное заведение</label>
-                  <textarea class="form-control" id="eduInstitution" rows="2"  required></textarea>
+                  <textarea class="form-control" name="eduInstitution" id="eduInstitution" rows="2"  required></textarea>
                 </div>
 
                 <div class="mb-3">
                   <div class="col-auto">
                     <label for="inputGradDateEduInstitution" class="form-label">Дата окончания учебного заведения</label>
                     <div class="input-group has-validation">
-                      <input type="date" class="form-control" id="inputGradDateEduInstitution" required>
+                      <input type="date" class="form-control" name="inputGradDateEduInstitution" id="inputGradDateEduInstitution" required>
                       <div class="invalid-feedback">
                       </div>
                     </div>
@@ -190,13 +190,13 @@ include("vendor/faculties_fetching.php");
                 <div class="mb-3">
                   <label for="certificateNumber" class="form-label">Номер аттестата</label>
                   <div class="input-group has-validation">
-                    <input type="number" class="form-control" id="certificateNumber" aria-describedby="inputGroupPrepend" required>
+                    <input type="number" class="form-control" name="certificateNumber" aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">
                         Некорректные данные!
                     </div>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="hasGoldMedal" >
+                    <input class="form-check-input" type="checkbox" value="1" name="hasGoldMedal" id="hasGoldMedal" >
                     <label class="form-check-label" for="hasGoldMedal">
                       Наличие золотой медали
                     </label>
@@ -205,7 +205,7 @@ include("vendor/faculties_fetching.php");
 
                 <div class="mb-3">
                   <label for="inputFaculty" class="form-label">Факультет</label>
-                  <select class="form-select" id='inputFaculty'>
+                  <select class="form-select" name="inputFaculty" id='inputFaculty'>
                     <option selected>Выберете факультет</option>
                     <option value="1">ИНСТИТУТ ЯДЕРНОЙ ФИЗИКИ И ТЕХНОЛОГИЙ</option>
                     <option value="2">ИНСТИТУТ ЛАЗЕРНЫХ И ПЛАЗМЕННЫХ ТЕХНОЛОГИЙ</option>
@@ -217,7 +217,7 @@ include("vendor/faculties_fetching.php");
                 <div class="col-md-6">
                   <label for="inputMail" class="form-label">Почта</label>
                   <div class="input-group has-validation">
-                    <input type="email" class="form-control" id="inputMail" placeholder="name@example.com" aria-describedby="inputGroupPrepend" required>
+                    <input type="email" class="form-control" name="inputMail" id="inputMail" placeholder="name@example.com" aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">
                         Некорректные данные!
                     </div>
@@ -225,9 +225,9 @@ include("vendor/faculties_fetching.php");
                 </div>
 
                 <div class="col-md-6">
-                  <label for="inputMail" class="form-label">Телефон</label>
+                  <label for="inputPhone" class="form-label">Телефон</label>
                   <div class="input-group has-validation">
-                    <input type="email" class="form-control" id="inputMail" placeholder="В формате +7 800 555 65 65" aria-describedby="inputGroupPrepend" required>
+                    <input type="number" class="form-control" name="inputPhone" id="inputPhone" placeholder="В формате +7 800 555 65 65" aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">
                         Некорректные данные!
                     </div>
@@ -241,7 +241,7 @@ include("vendor/faculties_fetching.php");
                     <div class="col-auto">
                       <label for="registerInputPassword" class="form-label">Пароль</label>
                       <div class="input-group has-validation">
-                        <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="registerInputPassword" required>
+                        <input type="password" name="registerInputPassword" class="form-control" id="registerInputPassword" required >
                         <div class="invalid-feedback">
                           Некорректные данные!
                         </div>
@@ -250,7 +250,7 @@ include("vendor/faculties_fetching.php");
                     <div class="col-auto">
                       <label for="registerInputPasswordConfirm" class="form-label">Подтверждение пароля</label>
                       <div class="input-group has-validation">
-                        <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="registerInputPasswordConfirm" required>
+                        <input type="password" name="registerInputPasswordConfirm" class="form-control" id="registerInputPasswordConfirm" required>
                         <div class="invalid-feedback">
                           Некорректные данные!
                         </div>
@@ -277,6 +277,13 @@ include("vendor/faculties_fetching.php");
 
                 <p></p>
             </form>
+              <?php
+              if (isset($_SESSION['message'])) {
+                  echo '<p class="msg" style="color: red;"> ' . $_SESSION['message'] . ' </p>';
+              }
+              unset($_SESSION['message']);
+
+              ?>
 
           </div>
       

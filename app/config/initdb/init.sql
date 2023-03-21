@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS Entrants
 CREATE TABLE IF NOT EXISTS Role
 (
     id_role              INTEGER AUTO_INCREMENT NOT NULL,
-    name                 VARCHAR(20) NOT NULL,
+    name                 VARCHAR(100) NOT NULL,
     PRIMARY KEY (id_role)
     );
 
 CREATE TABLE IF NOT EXISTS Faculties(
-                                        id_faculty INTEGER AUTO_INCREMENT NOT NULL,
-                                        name VARCHAR(20) NOT NULL,
+    id_faculty INTEGER AUTO_INCREMENT NOT NULL,
+    name VARCHAR(200) NOT NULL,
     description TEXT NULL,
     PRIMARY KEY (id_faculty)
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS Faculties(
 CREATE TABLE IF NOT EXISTS Status
 (
     id_status            INTEGER AUTO_INCREMENT NOT NULL,
-    status_name          VARCHAR(18) NOT NULL,
+    status_name          VARCHAR(50) NOT NULL,
     PRIMARY KEY (id_status)
     );
 
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS Requests
 (
     id_request           INTEGER AUTO_INCREMENT NOT NULL,
     date_of_submission   DATE NOT NULL,
-    status               VARCHAR(20) NOT NULL,
+    comment              TEXT NULL,
     id_entrant           INTEGER NOT NULL,
     id_faculty           INTEGER NOT NULL,
     id_status            INTEGER NOT NULL,
@@ -181,12 +181,15 @@ INSERT INTO Passports VALUES (null, 'МВД РОССИИ', '01.01.2007', 1488, 0
 
 INSERT INTO Faculties VALUES (null, 'Институт ядерной физики и технологий', 'Цель ИЯФиТ и стратегия развития - создание и развитие научно-образовательного центра мирового уровня в области ядерной физики и технологий, радиационного материаловедения, физики элементарных частиц, астрофизики и космофизики.' );
 INSERT INTO Faculties VALUES (null, 'Институт интеллектуальных кибернетических систем', 'Цель ИИКС и стратегия развития - это подготовка кадров, способных противостоять современным угрозам и вызовам, обладающих знаниями и компетенциями в области кибернетики, информационной и финансовой безопасности для решения задач разработки базового программного обеспечения, повышения защищенности критически важных информационных систем и противодействия отмыванию денег, полученных преступным путем, и финансированию терроризма.' );
+INSERT INTO Faculties VALUES (null, 'Институт лазерных и плазменных технологий', 'Стратегическая цель Института ЛаПлаз – стать ведущей научной школой и ядром развития инноваций по лазерным, плазменным, радиационным и ускорительным технологиям, с уникальными образовательными программами, востребованными на российском и мировом рынке образовательных услуг.' );
+INSERT INTO Faculties VALUES (null, 'Институт физико-технических интеллектуальных систем', 'Институт физико-технических интеллектуальных систем впервые в стране обеспечивает комплексную подготовку специалистов по созданию киберфизических устройств и систем самого различного назначения – основного вида технических устройств середины 21 века. ИФТИС реализует «дуальную» модель образования, в рамках которой направляет студентов на стажировку и выпускников для трудоустройства на передовые предприятия, занятые созданием инновационных киберфизических продуктов, в первую очередь, на предприятия ГК «Росатом». Основным индустриальным партнером ИФТИС является ведущее предприятие ГК «Росатом» — ФГУП «ВНИИА им. Н.Л. Духова».' );
+INSERT INTO Faculties VALUES (null, 'Институт международных отношений', 'Цель ИМО и стратегия развития - системная подготовка высококвалифицированных кадров, способных решать нестандартные задачи при реализации международных научно-технологических и торгово-промышленных проектов для компаний и корпораций ключевых секторов экономики страны.' );
 
 
 INSERT INTO Status VALUES (null, 'В обработке');
 INSERT INTO Status VALUES (null, 'Получен ответ');
 INSERT INTO Status VALUES (null, 'На рассторжении');
-
+INSERT INTO Status VALUES (null, 'Отклонено');
 
 INSERT INTO Role VALUES (NULL, 'Заведующий приёмной комиссией');
 INSERT INTO Role VALUES (NULL, 'Заведующая приёмной комиссией');
@@ -208,9 +211,19 @@ INSERT INTO Grades VALUES (NULL, 4, 1, 3);
 INSERT INTO Grades VALUES (NULL, 3, 1, 4);
 
 
-INSERT INTO Requests VALUES (NULL, '01.01.2023', 1, 1, 1, 2);
+INSERT INTO Requests VALUES (NULL, '01.01.2023',NULL, 1, 1, 1, 1);
 
-
+DELIMITER $$
+CREATE TRIGGER check_request_duplicate
+    BEFORE INSERT ON Requests
+    FOR EACH ROW
+BEGIN
+    IF EXISTS (SELECT 1 FROM Requests WHERE id_entrant = NEW.id_entrant) THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Only one request allowed per entrant';
+END IF;
+END;
+$$
 
 
 
