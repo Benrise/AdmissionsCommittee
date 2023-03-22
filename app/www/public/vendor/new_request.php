@@ -85,11 +85,9 @@ if ($registerInputPassword === $registerInputPasswordConfirm) {
 
 
     $date = date('d.m.Y');
-    $sql_query_insert = "INSERT INTO Requests VALUES (NULL, '$date',NULL, $id_entrant, $inputFaculty, 1, 2)";
+    $sql_query_insert = "INSERT INTO Requests VALUES (NULL, '$date',NULL, $id_entrant, $inputFaculty, 1, 1)";
     mysqli_query($GLOBALS['connect'], $sql_query_insert);
-
     $_SESSION['message'] = 'Регистрация прошла успешно! Статус заявления можете посмотреть в личном кабинете! ';
-    die();
     header('Location: ../entrant.php');
 
 

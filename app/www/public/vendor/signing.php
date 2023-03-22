@@ -30,7 +30,7 @@ if (mysqli_num_rows($check_user) > 0) {
     $user = mysqli_fetch_assoc($check_user);
     if ($user['id_employer']){
         $id_employer = $user['id_employer'];
-        $query = mysqli_query($GLOBALS['connect'], "SELECT e.*, r.name AS role_name
+        $query = mysqli_query($GLOBALS['connect'], "SELECT e.*, r.role_name
 FROM Employer e
 JOIN Role r ON e.id_role = r.id_role
 WHERE e.id_employer = '$id_employer';");

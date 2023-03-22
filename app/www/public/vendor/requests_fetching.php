@@ -23,7 +23,7 @@ function show_requests()
                 FROM Requests r
                 JOIN Entrants e ON r.id_entrant = e.id_entrant
                 JOIN Faculties f ON r.id_faculty = f.id_faculty
-                JOIN Status s ON r.id_status = s.id_status WHERE r.id_entrant=1;");
+                JOIN Status s ON r.id_status = s.id_status WHERE r.id_entrant=$id_entrant;");
 
 
     if (mysqli_num_rows($requests_check) <= 0) {
@@ -75,7 +75,26 @@ function show_request_num(){
 function fetch_employer_requests(){
     $id_employer = $_SESSION['employer']['id_employer'];
     if (isset($_SESSION['employer_requests'])) unset($_SESSION['employer_requests']);
-    $check_user = mysqli_query($GLOBALS['connect'], "SELECT * FROM requests where id_employer='$id_employer';");
+
+    $join_query = "SELECT r.id_request, 
+    r.date_of_submission, 
+    r.comment, 
+    e.name as employer_name, 
+    e.id_employer,
+    f.name as faculty_name,
+    f.id_faculty,
+    s.status_name,
+    s.id_status,
+    en.*
+    FROM Requests r
+    JOIN Employer e ON r.id_employer = e.id_employer
+    JOIN Faculties f ON r.id_faculty = f.id_faculty
+    JOIN Status s ON r.id_status = s.id_status
+    JOIN Entrants en ON r.id_entrant = en.id_entrant
+    WHERE e.id_employer = 1;";
+
+//    $request_query = "SELECT * FROM requests where id_employer='$id_employer';";
+    $check_user = mysqli_query($GLOBALS['connect'], $join_query);
     if (mysqli_num_rows($check_user) > 0) {
         while ($user = $check_user->fetch_assoc()) {
             $_SESSION['employer_requests'][] = [
@@ -83,7 +102,24 @@ function fetch_employer_requests(){
                 "date_of_submission" => $user['date_of_submission'],
                 "id_faculty" => $user['id_faculty'],
                 "id_status" => $user['id_status'],
-                "id_entrant" => $user['id_entrant']
+                "id_entrant" => $user['id_entrant'],
+                "id_employer" => $user['id_employer'],
+                'date_of_submission' => $user['date_of_submission'],
+                'name' => $user['name'],
+                'surname' => $user['surname'],
+                'patronymic' => $user['patronymic'],
+                'birthday' => $user['birthday'],
+                'sex' => $user['sex'],
+                'edu_institution' => $user['edu_institution'],
+                'grad_date_edu_institution' => $user['grad_date_edu_institution'],
+                'has_gold_medal' => $user['has_gold_medal'],
+                'certificate_number' => $user['certificate_number'],
+                'email' => $user['email'],
+                'phone' => $user['phone'],
+                'faculty_name' => $user['faculty_name'],
+                'status_name' => $user['status_name'],
+                'comment' => $user['comment']
+
             ];
         }
     }

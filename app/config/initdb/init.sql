@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Entrants
 CREATE TABLE IF NOT EXISTS Role
 (
     id_role              INTEGER AUTO_INCREMENT NOT NULL,
-    name                 VARCHAR(100) NOT NULL,
+    role_name                 VARCHAR(100) NOT NULL,
     PRIMARY KEY (id_role)
     );
 

@@ -12,6 +12,7 @@ include("vendor/faculties_fetching.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/reset.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Приемная комиссия</title>
@@ -32,12 +33,13 @@ include("vendor/faculties_fetching.php");
                 <a class="nav-link active" aria-current="page" href="#">Абитуриенту</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="profile.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Личный кабинет
                 </a>
                   <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="login.php">
-                              <?php if (isset($_SESSION["user"])){
+                              <?php if ((isset($_SESSION["user"])) or isset($_SESSION["employer"]))
+                              {
                                   echo "<a class=\"dropdown-item\" href=\"profile.php\">Профиль</a>";
                               }
                               else{
@@ -45,7 +47,8 @@ include("vendor/faculties_fetching.php");
                               }?></a></li>
 
                       <li><a class="dropdown-item" href="register.php">
-                              <?php if (isset($_SESSION["user"])){
+                              <?php if ((isset($_SESSION["user"])) or isset($_SESSION["employer"]))
+                              {
                                   echo "<a href=\"vendor/logout.php\" class=\"dropdown-item\">Выйти</a>";}
                               else{
                                   echo "<a class=\"dropdown-item\" href=\"register.php\">Зарегестрироваться</a>";
@@ -143,7 +146,7 @@ include("vendor/faculties_fetching.php");
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="inputSex" value="female" id="inputSexFemale" >
+                    <input class="form-check-input" type="radio" name="inputSex" value="female" id="inputSexFemale"  required>
                     <label class="form-check-label" for="inputSexFemale">
                       Женский
                     </label>
@@ -154,16 +157,16 @@ include("vendor/faculties_fetching.php");
                 <div class="mb-3">
                   <label for="passport" class="form-label">Паспортные данные</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" name="inputPassportNum" placeholder="Номер паспорта" aria-label="Passport num">
-                    <input type="number" class="form-control" name="inputPassportSerial" placeholder="Серия паспорта" aria-label="Passport serial">
+                    <input type="number" class="form-control" name="inputPassportNum" placeholder="Номер паспорта" aria-label="Passport num" required>
+                    <input type="number" class="form-control" name="inputPassportSerial" placeholder="Серия паспорта" aria-label="Passport serial" required>
                   </div>
                   <div class="input-group">
                     <span class="input-group-text">Кем выдан</span>
-                    <textarea class="form-control" name="inputGivenOutByWhom" aria-label="With textarea"></textarea>
+                    <textarea class="form-control" name="inputGivenOutByWhom" aria-label="With textarea"></textarea required>
                   </div>
                   <div class="input-group ">
                     <span class="input-group-text">Когда выдан</span>
-                    <input type="date" class="form-control" name="inputWhenGivenOut" aria-label="With textarea"></input>
+                    <input type="date" class="form-control" name="inputWhenGivenOut" aria-label="With textarea" required></input>
                   </div>
                 </div>
                 
@@ -205,8 +208,8 @@ include("vendor/faculties_fetching.php");
 
                 <div class="mb-3">
                   <label for="inputFaculty" class="form-label">Факультет</label>
-                  <select class="form-select" name="inputFaculty" id='inputFaculty'>
-                    <option selected>Выберете факультет</option>
+                  <select class="form-select" name="inputFaculty" id='inputFaculty' required>
+                    <option selected disabled value="" >Выберете факультет</option>
                     <option value="1">ИНСТИТУТ ЯДЕРНОЙ ФИЗИКИ И ТЕХНОЛОГИЙ</option>
                     <option value="2">ИНСТИТУТ ЛАЗЕРНЫХ И ПЛАЗМЕННЫХ ТЕХНОЛОГИЙ</option>
                     <option value="3">ИНЖЕНЕРНО-ФИЗИЧЕСКИЙ ИНСТИТУТ БИОМЕДИЦИНЫ</option>

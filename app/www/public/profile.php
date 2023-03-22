@@ -17,6 +17,7 @@ if (!isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/reset.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Приемная комиссия</title>
@@ -42,7 +43,8 @@ if (!isset($_SESSION['user'])) {
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="login.php">
-                          <?php if (isset($_SESSION["user"])){
+                          <?php if ((isset($_SESSION["user"])) or isset($_SESSION["employer"]))
+                          {
                               echo "<a class=\"dropdown-item\" href=\"profile.php\">Профиль</a>";
                           }
                           else{
@@ -50,7 +52,8 @@ if (!isset($_SESSION['user'])) {
                           }?></a></li>
 
                     <li><a class="dropdown-item" href="register.php">
-                            <?php if (isset($_SESSION["user"])){
+                            <?php if ((isset($_SESSION["user"])) or isset($_SESSION["employer"]))
+                            {
                                 echo "<a href=\"vendor/logout.php\" class=\"dropdown-item\">Выйти</a>";}
                             else{
                                 echo "<a class=\"dropdown-item\" href=\"register.php\">Зарегестрироваться</a>";
@@ -158,6 +161,14 @@ if (!isset($_SESSION['user'])) {
                                   <ul class="list-group list-group-flush">
                                       <?php show_requests();?>
                                   </ul>
+                                  <div class="d-flex justify-content-end " role="group" aria-label="Button group">
+                                      <div class="d-flex justify-content-end mb-2">
+                                          <button type="button" style="margin-right: 10px;" class="btn btn-danger">Отозвать заявление</button>
+                                      </div>
+                                      <div class="d-flex justify-content-end mb-2">
+                                          <button type="button" style="margin-left: 10px;" class="btn btn-primary">Изменить факультет</button>
+                                      </div>
+                                  </div>
                               </div>
                           </div>
                       </div>
@@ -174,5 +185,5 @@ if (!isset($_SESSION['user'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
 </body>
-  
-</html> 
+
+</html>
