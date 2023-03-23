@@ -1,5 +1,6 @@
+const current = document.querySelector('#currentEmail');
+const response = document.querySelector('#ajaxResponse');
 
-const response = document.querySelector('#paragraph');
 
 document.forms.editEmailForm.onsubmit = function(e) {
     e.preventDefault()

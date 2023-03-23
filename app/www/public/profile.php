@@ -14,7 +14,7 @@ if (!isset($_SESSION['user'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,8 +123,16 @@ if (!isset($_SESSION['user'])) {
                                     </div>
 
                                     <div class="col-sm-9 ">
-                                            <p id="paragraph" class="text-muted mb-0"><span><?= @$_SESSION['user']['email'] ?> </span></p>
-                                        <input style="visibility: hidden" type="email" class="form-control" id="editEmailInput" aria-describedby="emailHelp" required>
+                                            <p id="currentEmail" class="text-muted mb-0"><span><?= @$_SESSION['user']['email'] ?> </span></p>
+                                            <br style="display: none" id ="current-new-email-spacing">
+                                            <p id="ajaxResponse" class="text-muted mb-0"></p>
+                                        <input style="visibility: hidden; position: absolute;" type="email" class="form-control" id="editEmailInput" aria-describedby="emailHelp" required>
+                                        <div id="successEditEmail" style="display: none" class="alert alert-success" role="alert">
+                                            Успешная смена почты!
+                                        </div>
+                                        <div id="failEditEmail" style="display: none" class="alert alert-danger" role="alert">
+                                            Некорректный email адрес!
+                                        </div>
                                     </div>
                                   </div>
                                   <hr>
