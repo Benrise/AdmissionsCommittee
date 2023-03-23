@@ -2,12 +2,14 @@
 session_start();
 require_once("vendor/db_connect.php");
 include("vendor/requests_fetching.php");
+include("vendor/auto_exit.php");
 
 if (!isset($_SESSION['employer'])) {
     unset($_SESSION['user']);
     header('Location: http://localhost/login.php');
 
 }
+auto_exit();
 ?>
 
 

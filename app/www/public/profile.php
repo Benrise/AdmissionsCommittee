@@ -2,12 +2,14 @@
 session_start();
 require_once("vendor/db_connect.php");
 include("vendor/requests_fetching.php");
+include("vendor/auto_exit.php");
 
 if (!isset($_SESSION['user'])) {
     unset($_SESSION['employer']);
     header('Location: http://localhost/login.php');
 
 }
+//auto_exit();
 ?>
 
 
@@ -95,56 +97,62 @@ if (!isset($_SESSION['user'])) {
                     <img src="./uploads/ava6.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="my-3"> <span><?= @$_SESSION['user']['name'] ?> </span> <span><?= @$_SESSION['user']['surname'] ?> </span></h5>
                   <p class="text-muted mb-1">Абитуриент</p>
-                  <p class="text-muted mb-4">Электронная почта</p>
+                  <p class="text-muted mb-4"><span><?= @$_SESSION['user']['email'] ?> </span></p>
                 </div>
               </div>
             </div>
 
             <h3>Личные данные</h3>
-            <div class="col-lg-8">
-              <div class="card mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">ФИО</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0"><span><?= @$_SESSION['user']['name'] ?> </span> <span><?= @$_SESSION['user']['surname'] ?> </span> <span><?= @$_SESSION['user']['patronymic'] ?> </span></p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Почта</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0"><span><?= @$_SESSION['user']['email'] ?> </span></p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Телефон</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0"><span><?= @$_SESSION['user']['phone'] ?> </span></p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Пол</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0"><span><? if (@$_SESSION['user']['sex'] == 'male'){ echo "Мужской";} else echo "Женский"; ?> </span></p>
-                    </div>
-                  </div>
-                    <div class="d-flex justify-content-end mb-2">
-                        <button type="button" class="btn btn-primary">Изменить</button>
-                    </div>
-                </div>
-              </div>
+                <div class="col-lg-8">
+                      <div class="card mb-4">
+                        <div class="card-body ">
+                            <form name="editEmailForm" method="post" onsubmit="return submitForm();" validate>
+                                  <div class="row ">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">ФИО</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0"><span><?= @$_SESSION['user']['name'] ?> </span> <span><?php @$_SESSION['user']['surname'] ?> </span> <span><?= @$_SESSION['user']['patronymic'] ?> </span></p>
+                                        <p style="display: none;" id="entrantId"><?php $_SESSION['user']['id_entrant'] ?></p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Почта</p>
+                                    </div>
 
+                                    <div class="col-sm-9 ">
+                                            <p id="paragraph" class="text-muted mb-0"><span><?= @$_SESSION['user']['email'] ?> </span></p>
+                                        <input style="visibility: hidden" type="email" class="form-control" id="editEmailInput" aria-describedby="emailHelp" required>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Телефон</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0"><span><?= @$_SESSION['user']['phone'] ?> </span></p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Пол</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0"><span><? if (@$_SESSION['user']['sex'] == 'male'){ echo "Мужской";} else echo "Женский"; ?> </span></p>
+                                    </div>
+                                  </div>
+                                    <div class="d-flex justify-content-end mb-2">
+                                        <button style="visibility: hidden" id="cancel" class="mx-2 btn btn-secondary">Отмена</button>
+                                        <button style="visibility: hidden" id="save" style="display: none" type="submit" class="btn btn-success">Готово</button>
+                                        <button id="edit" class="btn btn-primary">Изменить</button>
+                                    </div>
+                            </form>
+                    </div>
+                  </div>
               <div class="row">
                 <h3>Заявления</h3>
                   <div class="accordion" id="accordionExample">
@@ -183,6 +191,7 @@ if (!isset($_SESSION['user'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="js/ajax-form.js"></script>
     <script src="js/script.js"></script>
 </body>
 
