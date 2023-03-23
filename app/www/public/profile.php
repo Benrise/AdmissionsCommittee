@@ -97,7 +97,7 @@ if (!isset($_SESSION['user'])) {
                     <img src="./uploads/ava6.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="my-3"> <span><?= @$_SESSION['user']['name'] ?> </span> <span><?= @$_SESSION['user']['surname'] ?> </span></h5>
                   <p class="text-muted mb-1">Абитуриент</p>
-                  <p class="text-muted mb-4"><span><?= @$_SESSION['user']['email'] ?> </span></p>
+<!--                  <p class="text-muted mb-4"><span>--><?//= @$_SESSION['user']['email'] ?><!-- </span></p>-->
                 </div>
               </div>
             </div>
@@ -179,10 +179,10 @@ if (!isset($_SESSION['user'])) {
                                   </ul>
                                   <div class="d-flex justify-content-end " role="group" aria-label="Button group">
                                       <div class="d-flex justify-content-end mb-2">
-                                          <button type="button" style="margin-right: 10px;" class="btn btn-danger">Отозвать заявление</button>
+                                          <button id="dropRequest" type="button" style="margin-right: 10px;" class="btn btn-danger">Отозвать заявление</button>
                                       </div>
                                       <div class="d-flex justify-content-end mb-2">
-                                          <button type="button" style="margin-left: 10px;" class="btn btn-primary">Изменить факультет</button>
+                                          <button id="changeFaculty" type="button" style="margin-left: 10px; " class="btn btn-primary">Изменить факультет</button>
                                       </div>
                                   </div>
                               </div>

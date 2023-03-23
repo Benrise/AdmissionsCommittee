@@ -28,10 +28,36 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const successAlert = document.getElementById('successEditEmail');
 const failAlert = document.getElementById('failEditEmail');
 const spacing = document.getElementById('current-new-email-spacing');
+const dropRequestButton = document.getElementById('dropRequest');
+const changeFacultyButton = document.getElementById('changeFaculty');
+const saveEditRequestButton = document.getElementById('saveEditRequest');
+const cancelEditRequestButton = document.getElementById('cancelEditRequest');
+const commentArea =  document.getElementById('commentArea');
+const spanComment =  document.getElementById('spanComment');
+const inputFacultyButton =  document.getElementById('inputFaculty');
+
+
+changeFacultyButton.addEventListener('click', (e) => {
+    changeFacultyButton.style.display = "none";
+    dropRequestButton.style.display = "none";
+    inputFacultyButton.style.display = "block";
+    commentArea.style.display = "block";
+    saveEditRequestButton.style.display = "block";
+    cancelEditRequestButton.style.display = "block";
+    return false;
+});
+cancelEditRequestButton.addEventListener('click', (e) => {
+    changeFacultyButton.style.display = "block";
+    dropRequestButton.style.display = "block";
+    commentArea.style.display = "none";
+    saveEditRequestButton.style.display = "none";
+    cancelEditRequestButton.style.display = "none";
+    inputFacultyButton.style.display = "none";
+    e.preventDefault()
+});
 
 
 editButton.addEventListener('click', (e) => {
-
     currentEmail.style.position = "absolute";
     spacing.style.display = "none"
     response.style.display = "none"

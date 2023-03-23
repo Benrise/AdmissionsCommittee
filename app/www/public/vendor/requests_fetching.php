@@ -19,7 +19,8 @@ function show_requests()
                 e.email, 
                 e.phone, 
                 f.name as faculty_name, 
-                s.status_name
+                s.status_name,
+                r.comment
                 FROM Requests r
                 JOIN Entrants e ON r.id_entrant = e.id_entrant
                 JOIN Faculties f ON r.id_faculty = f.id_faculty
@@ -51,9 +52,31 @@ function show_requests()
             echo "<li class=\"list-group-item\">"."<p>Номер телефона</p>".$request['phone']."</li>";
             echo "<li class=\"list-group-item\">"."<p>Желаемый факультет</p>".$request['faculty_name']."</li>";
             echo "<li class=\"list-group-item\">"."<p>Статус заявления</p>".$request['status_name']."</li>";
+
+            if(!$request['comment'] == ""){
+                echo "<li class=\"list-group-item\">"."<p>Последний комментарий</p>".$request['comment']."</li>";
+            }
+
 //            foreach ($request as $field => $value){
 //                echo "<li class=\"list-group-item\">".$value."</li>";
 //            }
+            echo '
+            <form id="editFacultyInputGroup" style="margin-top: 10px;" class="input-group" name="idRequest" value ="'.$request['id_request'].'" action="vendor/faculty_change.php" method="post" >
+                    <span style="display: none" id="spanComment" class="input-group-text ">Комментарий</span>
+                    <textarea style="display: none" name="inputComment"  class="form-control" id="commentArea" aria-label="With textarea" required></textarea>
+                    <input type="text" value="'.$request['id_request'].'"  name="idRequest" class="form-control visually-hidden">
+                    <select style="display: none" class="form-select" name="inputFaculty" id="inputFaculty" required>
+                        <option selected disabled value="" >Выберете факультет</option>
+                        <option disabled value="1">Институт ядерной физики и технологий</option>
+                        <option value="2">Институт интеллектуальных кибернетических систем</option>
+                        <option value="3">Институт лазерных и плазменных технологий</option>
+                        <option value="4">Институт физико-технических интеллектуальных систем</option>
+                        <option value="5">Институт международных отношений</option>
+                    </select> 
+                    <button style="display: none" id="cancelEditRequest" class="btn btn-secondary" >Закрыть</button>
+                    <button  style="display: none" id="saveEditRequest" class="btn btn-success" type="submit">Готово</button>
+             
+            </form>';
         }
     }
     else{
